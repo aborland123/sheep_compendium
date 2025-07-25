@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from main import app
+from sheep_compendium.main import app
 
 client = TestClient(app)
 
