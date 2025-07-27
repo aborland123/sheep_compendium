@@ -1,4 +1,4 @@
-from sheep_compendium.models.models import Sheep #emily - had to change the code here if you have problems text me
+from .models import Sheep
 from typing import Dict
 
 class FakeDB:
@@ -17,3 +17,11 @@ db. data = {
     5: Sheep(id=5, name="Vala", breed="Valais Blacknose", sex="ewe"),
     6: Sheep(id=6, name="Esther", breed="Border Leicester", sex="ewe")
 }
+
+def add_sheep(self, sheep: Sheep) -> Sheep:
+    # Check if ID already exists
+    if sheep.id in self.data:
+        raise ValueError("Sheep with this ID already exists")
+    #Add new sheep to the database
+    self.data[sheep.id] = sheep
+    return sheep
