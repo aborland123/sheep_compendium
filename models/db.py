@@ -1,5 +1,5 @@
 from .models import Sheep
-from typing import Dict
+from typing import Dict, List
 
 class FakeDB:
     def __init__(self):
@@ -7,6 +7,24 @@ class FakeDB:
 
     def get_sheep(self, id: int) -> Sheep:
         return self.data.get(id)
+
+
+    # --- Extra Credit Functions --
+    def delete_sheep(self, id: int) -> bool:
+        if id in self.data:
+            del self.data[id]
+            return True
+        return False
+
+    def update_sheep(self, id: int, sheep: Sheep) -> Sheep:
+        if id not in self.data:
+            raise ValueError("Sheep with this ID does not exist")
+        self.data[id] = sheep
+        return sheep
+
+
+    def read_all_sheep(self) -> List[Sheep]:
+        return list(self.data.values())
 
 db = FakeDB()
 db. data = {

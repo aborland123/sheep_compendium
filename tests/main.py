@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from models.db import db
 from models.models import Sheep
+from typing import List
 
 app = FastAPI()
 
@@ -17,3 +18,25 @@ def add_sheep(sheep: Sheep):
     #Add the new sheep to the database
     db.data[sheep.id] = sheep
     return sheep
+
+# --- Extra Credit Endpoints ---
+@app.delete("/sheep/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_sheep(id: int):
+    if not db.delete_sheep(id):
+        raise HTTPException(status_code=404, detail="Sheep not found")
+    return
+
+@app.put("/sheep/{id}", response_model=Sheep)
+def update_sheep(id: int, sheep: Sheep):
+    # Check if the IDs match
+    if id != sheep.id:
+        raise HTTPException(status_code=400, detail="Ids do not match")
+    try:
+        updated_sheep = db.update_sheep(id, sheep)
+        return updated_sheep
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+@app.get("/sheep/", response_model=List[Sheep])
+def read_all_sheep():
+    return db.read_all_sheep()

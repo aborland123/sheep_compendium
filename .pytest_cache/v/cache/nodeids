@@ -1,4 +1,7 @@
 [
   "tests/test_main.py::test_add_sheep",
-  "tests/test_main.py::test_read_sheep"
+  "tests/test_main.py::test_delete_sheep",
+  "tests/test_main.py::test_read_all_sheep",
+  "tests/test_main.py::test_read_sheep",
+  "tests/test_main.py::test_update_sheep"
 ]
